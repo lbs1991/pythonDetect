@@ -1,0 +1,73 @@
+要知道当前系统的代号，可以用以下命令：
+lsb_release -a
+
+zsh:
+https://www.zhihu.com/question/21418449
+shortkey
+https://blog.csdn.net/zhangvalue/article/details/94398352
+
+apt
+https://www.cnblogs.com/sparkdev/p/11339231.html
+
+su 用户 ：只切换身份
+su - 用户 ：身份和shell（包含环境变量）都切换
+
+snap
+https://blog.csdn.net/gulang03/article/details/85251620
+
+pycharm install
+#snap install pycharm-community --classic
+or
+#sudo tar -zxvf ~/Downloads/pycharm-professional-2020.3.1.tar.gz -C /opt/
+crack Python联盟
+
+https://www.jetbrains.com/help/pycharm/installation-guide.html#standalone
+
+sublime
+snap install sublime-text --classic
+whereis sublime-text
+https://www.cnblogs.com/wind128/p/4409422.html
+
+pip
+sudo apt install python3-pip
+py -m pip --version 
+py -m pip install numpy
+
+
+sudo 
+https://blog.csdn.net/qq_32640013/article/details/98365435
+
+su
+https://www.runoob.com/linux/linux-comm-su.html
+
+ipython
+sudo apt  install ipython3
+python3 -m IPython --version 查看是否安装ipython成功，显示版本信息则说明成功安装
+
+turtle:tkinter
+sudo apt install tcl-dev tk-dev python3-tk
+
+pycharm perfect uninstall
+gedit /opt/pycharm-2020.3.1/Install-Linux-tar.txt
+sudo rm -rf /opt/pycharm-2020.3.1
+sudo rm -rf ~/.config/JetBrains 
+https://blog.csdn.net/qq_40341531/article/details/108738876
+
+后台运行
+第一种：使用 “nohup”，即 "nohup gedit command_20201114 &"，忽略hangup信号，防止终端关闭时程序退出。运行状态可以用 “jobs -l” 来查看。
+第二种：使用 “setsid” 即 “setsid ./test.sh” 。
+第三种：最简单，将命令放入括号当中，比如说：（./test &），这样就行了。
+
+xargs
+https://blog.csdn.net/qq_39436605/article/details/81128999
+find . -type f -name "*.php" -print0 | xargs -0 wc -l
+
+git config --global core.editor vim
+git config --global core.editor "subl -w"
+export GIT_EDITOR=vim
+git config --global user.email "zgzjlbs@163.com"     
+sub ~/pythonDetect/.git/config 
+sub ~/.gitconfig 
+
+
+

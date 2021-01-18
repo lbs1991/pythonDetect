@@ -1,0 +1,42 @@
+class property(object):
+	    
+	fget
+        function to be used for getting an attribute value
+
+    Typical use is to define a managed attribute x:
+
+    class C(object):
+        def getx(self): return self._x
+        def setx(self, value): self._x = value
+        def delx(self): del self._x
+        x = property(getx, setx, delx, "I'm the 'x' property.")
+
+    Decorators make defining new properties or modifying existing ones easy:
+
+    class C(object):
+        @property
+        def x(self):
+            "I am the 'x' property."
+            return self._x
+        @x.setter
+        def x(self, value):
+            self._x = value
+        @x.deleter
+        def x(self):
+            del self._x
+
+    def getter(self, *args, **kwargs): # real 
+    	""" Descriptor to change the getter on a property. """
+
+    def __getattribute__(self, *args, **kwargs):
+        """ Return getattr(self, name). """
+
+    def __get__(self, *args, **kwargs): 
+        """ Return an attribute of instance, which is of type owner. """
+
+	def __init__(self, fget=None, fset=None, fdel=None, doc=None):
+	    #fget function to be used for getting an #attribute value
+
+	fget = property(lambda self: object(), lambda self, v: None, lambda self: None)
+
+https://www.cnblogs.com/gscnblog/p/10366604.html

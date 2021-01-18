@@ -1,0 +1,104 @@
+
+
+threading.py   
+
+	import _thread
+
+	def current_thread():
+		try:
+			return _active[get_ident()]
+		except KeyError
+			return _DummyThread()
+
+	_active = {}
+	get_ident = _thread.get_ident
+
+	_allocate_lock = _thread.allocate_lock #See help(type(threading.Lock())) for
+
+	class Thread():
+
+		_initialized = False
+
+		def __init__(self, group=None, target=None, name=None,
+					args=(), kwargs=None, *, daemon=None):
+
+			self._daemonic = current_thread().daemon
+			self._ident = None
+		 	self._started = Event()
+	        self._is_stopped = False
+	        self._initialized = True
+		def start(self):
+       
+        with _active_limbo_lock:
+            _limbo[self] = self
+        try:
+            _start_new_thread(self._bootstrap, ())
+        except Exception:
+            with _active_limbo_lock:
+                del _limbo[self]
+            raise
+        self._started.wait()
+
+		@property
+	    def name(self):
+	        """A string used for identification purposes only.
+
+	        It has no semantics. Multiple threads may be given the same name. The
+	        initial name is set by the constructor.
+
+	        """
+	        assert self._initialized, "Thread.__init__() not called"
+	        return self._name
+
+	    @name.setter
+	    def name(self, name):
+	        assert self._initialized, "Thread.__init__() not called"
+	        self._name = str(name)	
+
+	Lock = _allocate_lock
+
+
+	class _RLock:
+
+	    def __init__(self):
+
+	    def acquire(self, blocking=True, timeout=-1):
+	    
+
+	    def release(self):
+	     
+
+	    def __exit__(self, t, v, tb):
+	        self.release()
+
+	    # Internal methods used by condition variables
+
+	    def _acquire_restore(self, state):
+	        self._block.acquire()
+	        self._count, self._owner = state
+
+	    def _release_save(self):
+	        
+
+	    def _is_owned(self):
+	        return self._owner == get_ident()
+
+	_PyRLock = _RLock
+
+	class Event:
+		def __init__(self):
+	        self._cond = Condition(Lock())
+	        self._flag = False
+
+	class Condition:
+		def __init__(self, lock=None):
+	        if lock is None:
+	            lock = RLock()
+	        self._lock = lock
+	        # Export the lock's acquire() and release() methods
+	        self.acquire = lock.acquire
+	        self.release = lock.release
+
+
+
+

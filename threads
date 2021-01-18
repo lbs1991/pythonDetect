@@ -1,0 +1,15 @@
+_thread active_count
+
+limbo 
+
+Lock = _allocate_lock
+
+_allocate_lock = _thread.allocate_lock  -> LockType
+
+_active_limbo_lock = _allocate_lock()
+
+
+
+threading.Lock()
+
+property

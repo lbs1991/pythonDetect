@@ -1,0 +1,81 @@
+inst 
+
+281 class _Final:
+290 class _Immutable:  """Mixin to indicate that object should not be copied."""
+
+
+300 class _SpecialForm(_Final, _Immutable, _root=True):
+
+373 Any = _SpecialForm('Any', doc=
+    """Special type indicating an unconstrained type.
+
+    - Any is compatible with every type.
+    - Any assumed to have all methods.
+    - All values assumed to be instances of Any.
+
+    Note that all the above statements are true from the point of view of
+    static type checkers. At runtime, Any should not be used with instance
+    or class checks.
+    """)
+
+433 Union = _SpecialForm('Union', doc=
+    """Union type; Union[X, Y] means either X or Y.
+
+    To define a union, use e.g. Union[int, str].  Details:
+    - The arguments must be types and there must be at least one.
+    - None as an argument is a special case and is replaced by
+      type(None).
+    - Unions of unions are flattened, e.g.::
+
+        Union[Union[int, str], float] == Union[int, str, float]
+
+    - Unions of a single argument vanish, e.g.::
+
+        Union[int] == int  # The constructor actually returns int
+
+    - Redundant arguments are skipped, e.g.::
+
+        Union[int, str, int] == Union[int, str]
+
+    - When comparing unions, the argument order is ignored, e.g.::
+
+        Union[int, str] == Union[str, int]
+
+    - You cannot subclass or instantiate a union.
+    - You can use Optional[X] as a shorthand for Union[X, None].
+    """)
+
+Vector = List[float]
+
+1478 List = _alias(list, T, inst=False)
+
+1419 T = TypeVar('T')  # Any type.
+
+539 class TypeVar(_Final, _Immutable, _root=True):
+
+        def __init__(self, name, *constraints, bound=None,
+                 covariant=False, contravariant=False):
+
+
+#here spacial is Ture,only the list  ,tuple,dict ...
+def _alias(origin, params, inst=True):
+    return _GenericAlias(origin, params, special=True, inst=inst)
+
+650 class _GenericAlias(_Final, _root=True):
+        def __init__(self, origin, params, *, inst=True, special=False, name=None):
+            self._inst = inst
+            self._special = special
+            if special and name is None:
+                orig_name = origin.__name__
+                name = _normalize_alias.get(orig_name, orig_name)
+            self._name = name
+            if not isinstance(params, tuple):
+                params = (params,)
+            self.__origin__ = origin
+            self.__args__ = tuple(... if a is _TypingEllipsis else
+                                  () if a is _TypingEmpty else
+                                  a for a in params)
+            self.__parameters__ = _collect_type_vars(params)
+            self.__slots__ = None  # This is not documented.
+            if not name:
+                self.__module__ = origin.__module__
