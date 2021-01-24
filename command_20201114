@@ -62,12 +62,15 @@ xargs
 https://blog.csdn.net/qq_39436605/article/details/81128999
 find . -type f -name "*.php" -print0 | xargs -0 wc -l
 
+**************GIT*********
 git config --global core.editor vim
 git config --global core.editor "subl -w"
 export GIT_EDITOR=vim
 git config --global user.email "zgzjlbs@163.com"     
 sub ~/pythonDetect/.git/config 
 sub ~/.gitconfig 
+git var GIT_EDITOR
+
 
 
 
